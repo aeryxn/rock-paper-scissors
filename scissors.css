@@ -2,9 +2,6 @@ body {
 	display: grid;
 	place-items: center;
 	height: 100vh;
-}
-
-#play {
-	border: 5px solid black;
-	padding: 5px;
+	background-color: black;
+	color: white;
 }

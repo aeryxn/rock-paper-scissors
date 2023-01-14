@@ -8,7 +8,14 @@
 		<link href="./scissors.css" rel="stylesheet" />
 	</head>
 	<body id='body'>
-		<h1 id='play' style="cursor: pointer;">Click To Play</h1>
-		<script src="./rock.js" defer></script>
+		<h1 id="result">Rock Paper Scissors vs AI</h1>
+		<h1 id="pick">Pick one to start:</h1>
+		<ul id="options">
+			<li id="rock" onclick="game(this)"></li>
+			<li id="paper" onclick="game(this)"></li>
+			<li id="scissors" onclick="game(this)"></li>
+		</ul>
+		<script src="./rock.js"></script>
+		
 	</body>
 </html>
