@@ -14,14 +14,9 @@ var win;
 let aiChoice = "";
 var tie;
 document.body.appendChild(settings);
-const backButton = document.getElementById("backButton");
-backButton.style.cursor = "pointer";
-let whiteModeOn = false;
 var settingsUp = false;
-let dotDotDot = [".", "..", "..."];
-let varNum = 0;
-let dotDotString = dotDotDot[varNum];
-let myInterval;
+let rounds = 3;
+let roundOn = false;
 
 //css
 
@@ -57,11 +52,13 @@ function showAiChoice (choice) {
 }
 
 function reset () {
+	settings.innerHTML = "settings";
+	settings.style.border = "5px solid white";
+	if (document.getElementById("roundsPick")) {
+		document.getElementById("roundsPick").remove();
+	}
 	if (document.getElementById("youChose")) {
 		document.getElementById("youChose").remove();
-	}
-	if (document.getElementById("whiteMode")) {
-		document.getElementById("whiteMode").remove();
 	}
 	if (document.getElementById("backButton")) {
 		document.getElementById("backButton").remove();
@@ -69,6 +66,7 @@ function reset () {
 	if (document.getElementById("roundCount")) {
 		document.getElementById("roundCount").remove();
 	}
+	document.getElementById("result").innerHTML = "Rock Paper Scissors vs AI";
 	const roundCount = document.createElement("h1");
 	document.body.appendChild(roundCount);
 	roundCount.id = "roundCount";
@@ -95,24 +93,34 @@ function playAgain () {
 	again.style.bottom = '10%';
 	again.style.cursor = "pointer";
 	again.style.padding = "5px";
-	
-	if (aiRecord == 2 && playerRecord == 0) {
+
+	if (playerRecord == 3 && rounds == 5) {
 		again.innerHTML = "click to start new game (settings will be reset)";
 		again.addEventListener("click", function () {
 			window.location.reload();
 		});
-	} else if (playerRecord == 2 && aiRecord == 0) {
+	} else if (aiRecord == 3 && rounds == 5) {
+		again.innerHTML = "click to start new game (settings will be reset)";
+		again.addEventListener("click", function () {
+			window.location.reload();
+		});
+	} else if (aiRecord == 2 && playerRecord == 0 && rounds == 3) {
+		again.innerHTML = "click to start new game (settings will be reset)";
+		again.addEventListener("click", function () {
+			window.location.reload();
+		});
+	} else if (playerRecord == 2 && aiRecord == 0 && rounds == 3) {
 		again.innerHTML = "click to start a new game (settings will be reset)";
 		again.addEventListener("click", function () {
 			window.location.reload();
 		});
-	} else if (round == 3){
+	} else if (round == rounds){
 		again.innerHTML = "click to start a new game (settings will be reset)";
 		again.addEventListener("click", function () {
 			window.location.reload();
 		});
 	} else {
-		again.innerHTML = "click to play next round (" + round + "/3)";
+		again.innerHTML = "click to play next round (" + round + "/" + rounds + ")";
 		again.addEventListener("click", function () {
 			round++;
 			reset();
@@ -120,54 +128,35 @@ function playAgain () {
 	}
 }
 
-
-
-function whiteMode () {
-	const whiteMode1 = document.createElement("h1");
-	document.body.appendChild(whiteMode1);
-	whiteMode1.id = "whiteMode";
-	whiteMode1.innerHTML = "White Mode | On: " + whiteModeOn;
-
-	while (settingsUp) {
-		whiteMode1.addEventListener("click", function () {
-			if (whiteModeOn) {
-				whiteMode1.innerHTML = "White Mode | On: " + whiteModeOn;
-				document.body.style.backgroundColor = "black";
-				document.body.style.color = "white";
-				document.getElementById("backButton").style.border = "5px solid black";
-				settings.style.border = "5px solid black";
-
-				if (document.getElementById("again")) {
-					document.getElementById("again").style.border = "5px solid black";
-				}
-
-			}
-			if (whiteModeOn === false) {
-				whiteMode1.innerHTML = "White Mode | On: " + whiteModeOn;
-				document.body.style.backgroundColor = "white";
-				document.body.style.color = "black";
-				document.getElementById("backButton").style.border = "5px solid white";
-				settings.style.border = "5px solid white";
-
-				if (document.getElementById("again")) {
-					document.getElementById("again").style.border = "5px solid white";
-				}
-			}
-		});
-	}
-}
-
 settings.addEventListener("click", function () {
+	settings.innerHTML = "";
+	settings.style.border = "none";
 	rock.innerHTML = "";
 	paper.innerHTML = "";
 	scissors.innerHTML = "";
 	document.getElementById("result").innerHTML = "Settings";
 	document.getElementById("pick").innerHTML = "";
+	backButton = document.createElement("h1");
+	backButton.id = "backButton";
+	backButton.style.cursor = "pointer";
+	document.body.appendChild(backButton);
 	backButton.innerHTML = "Back";
 	backButton.style.border = "5px solid white";
 	backButton.style.padding = "5px";
 	settingsUp = true;
-	whiteMode();
+
+	const roundsPick = document.createElement("h1");
+	document.body.appendChild(roundsPick);
+	roundsPick.innerHTML = "5 rounds (refresh page to turn off)";
+	roundsPick.style.border = "5px solid white";
+	roundsPick.style.cursor = "pointer";
+	roundsPick.id = "roundsPick";
+
+	roundsPick.addEventListener("click", function () {
+		rounds = 5;
+		roundsPick.innerHTML = "5 rounds (refresh page to turn off) | ON";
+		roundOn = true;
+	});
 	
 	backButton.addEventListener("click", function () {
 		reset();
@@ -178,7 +167,8 @@ settings.addEventListener("click", function () {
 function game (e) {
 	let aiChoice = choices[Math.floor(Math.random() * choices.length)];
 	document.getElementById("pick").innerHTML = "";
-
+	settings.innerHTML = "";
+	settings.style.border = "none";
 	const youChose = document.createElement("h1");
 	document.body.appendChild(youChose);
 	youChose.id = "youChose";
