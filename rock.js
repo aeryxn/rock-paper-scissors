@@ -1,32 +1,39 @@
 //setting variables
 
-const settings = document.createElement("h1");
 const choices = ["rock", "paper", "scissors"];
+const settings = document.createElement("h1");
 const options = document.getElementById("options");
 const rock = document.getElementById("rock");
 const paper = document.getElementById("paper");
 const scissors = document.getElementById("scissors");
+
 let playerRecord = 0;
 let aiRecord = 0;
 let round = 1;
 let playerChoice = "";
-var win;
-let aiChoice = "";
-var tie;
-document.body.appendChild(settings);
-var settingsUp = false;
 let rounds = 3;
-let roundOn = false;
+let aiChoice = "";
+
+var win;
+var tie;
+var settingsUp = false;
+
+document.body.appendChild(settings);
+settings.id = "settings";
 
 //css
 
 options.style.display = "inline-flex";
 options.style.listStyle = "none";
 options.style.fontSize = "100px";
+
 paper.style.padding = "0px 50px 0px 50px";
-rock.style.cursor = "pointer";
 paper.style.cursor = "pointer";
+
+rock.style.cursor = "pointer";
+
 scissors.style.cursor = "pointer";
+
 settings.style.cursor = "pointer";
 settings.style.border = "5px solid white";
 settings.style.padding = "5px";
@@ -34,26 +41,18 @@ settings.style.padding = "5px";
 //changing innerhtml
 
 rock.innerHTML = "rock";
+
 paper.innerHTML = "paper";
+
 scissors.innerHTML = "scissors";
 settings.innerHTML = "settings";
 
 //game functions
 
-function showAiChoice (choice) {
-	let choice1 = document.createElement("h1");
-	document.body.appendChild(choice1);
-	choice1.id = "choice1";
-	choice1.style.bottom = "20%";
-	
-	if (choice == "rock") choice1.innerHTML = "AI chose: rock";
-	if (choice == "paper") choice1.innerHTML = "AI chose: paper";
-	if (choice == "scissors") choice1.innerHTML = "AI chose: scissors";
-}
-
 function reset () {
 	settings.innerHTML = "settings";
 	settings.style.border = "5px solid white";
+
 	if (document.getElementById("roundsPick")) {
 		document.getElementById("roundsPick").remove();
 	}
@@ -104,12 +103,12 @@ function playAgain () {
 		again.addEventListener("click", function () {
 			window.location.reload();
 		});
-	} else if (aiRecord == 2 && playerRecord == 0 && rounds == 3) {
+	} else if (aiRecord == 2 && rounds == 3) {
 		again.innerHTML = "click to start new game (settings will be reset)";
 		again.addEventListener("click", function () {
 			window.location.reload();
 		});
-	} else if (playerRecord == 2 && aiRecord == 0 && rounds == 3) {
+	} else if (playerRecord == 2 && rounds == 3) {
 		again.innerHTML = "click to start a new game (settings will be reset)";
 		again.addEventListener("click", function () {
 			window.location.reload();
@@ -147,15 +146,14 @@ settings.addEventListener("click", function () {
 
 	const roundsPick = document.createElement("h1");
 	document.body.appendChild(roundsPick);
-	roundsPick.innerHTML = "5 rounds (refresh page to turn off)";
+	roundsPick.innerHTML = "5 rounds";
 	roundsPick.style.border = "5px solid white";
 	roundsPick.style.cursor = "pointer";
 	roundsPick.id = "roundsPick";
 
 	roundsPick.addEventListener("click", function () {
 		rounds = 5;
-		roundsPick.innerHTML = "5 rounds (refresh page to turn off) | ON";
-		roundOn = true;
+		roundsPick.innerHTML = "5 rounds (refresh to turn off) | on";
 	});
 	
 	backButton.addEventListener("click", function () {
@@ -169,9 +167,6 @@ function game (e) {
 	document.getElementById("pick").innerHTML = "";
 	settings.innerHTML = "";
 	settings.style.border = "none";
-	const youChose = document.createElement("h1");
-	document.body.appendChild(youChose);
-	youChose.id = "youChose";
 	
 	if (e === document.getElementById("rock")) {
 		paper.innerHTML = "";
@@ -188,8 +183,6 @@ function game (e) {
 		paper.innerHTML = "";
 		playerChoice = "scissors";
 	}
-	youChose.innerHTML = "You chose: " + playerChoice;
-
 	if (aiChoice === e.innerHTML) {
 		e.innerHTML = "Tie game. (" + playerRecord + " to " + aiRecord + ")";
 		win = "T";
@@ -225,9 +218,10 @@ function game (e) {
 		e.innerHTML = "You lost. (" + playerRecord + " to " + aiRecord + ")";
 		win = "L";
 	}
+
 	playAgain();
-	showAiChoice(aiChoice);
-	//const score = document.createElement("h1");
-	//document.body.appendChild(score);
-	//score.innerHTML = "game " + round + " | AI's " + aiChoice + " to your " + playerChoice + " | " + win;
+	const score = document.createElement("li");
+	document.getElementById("scoreboard").appendChild(score);
+	score.id = "score";
+	score.innerHTML = "game " + round + " | AI's " + aiChoice + " to your " + playerChoice + " | " + win;
 }

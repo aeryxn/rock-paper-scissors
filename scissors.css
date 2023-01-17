@@ -15,3 +15,63 @@ body {
 	background-color: black;
 	color: white;
 }
+
+#score {
+	position: relative;
+	bottom: 30%;
+	padding: 1px;
+	left: 30%;
+	max-width: fit-content;
+}
+
+#again {
+	position: absolute;
+	top: 75%;
+	left: 70%;
+	max-height: fit-content;
+}
+
+#choice1 {
+	position: absolute;
+}
+
+#roundCount {
+	position: absolute;
+	top: 10%;
+	
+}
+
+#settings {
+	position: absolute;
+	top: 80%;
+	right: 85%;
+}
+
+#roundsPick {
+	position: absolute;
+	top: 20%;
+}
+
+#pick {
+	position: absolute;
+	top: 35%;
+}
+
+#result {
+	position: absolute;
+	top: 5%;
+}
+
+#options {
+	position: absolute;	
+}
+
+#scoreboard {
+	position: absolute;
+	bottom: 10%;
+	list-style: none;
+	max-width: fit-content;
+	max-height: fit-content;
+	font-size: x-large;
+	left: 30%;
+}
